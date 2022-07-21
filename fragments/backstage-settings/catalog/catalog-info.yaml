@@ -10,6 +10,10 @@ spec:
   type: service
   lifecycle: #@ data.values.lifecycle
   owner: #@ data.values.team
+  #@ if data.values.hasapidocs:
+  providesApis:
+   - #@ "{}-api".format(data.values.artifactId)
+  #@ end
 #@ if data.values.hasapidocs:
 ---
 apiVersion: backstage.io/v1alpha1
