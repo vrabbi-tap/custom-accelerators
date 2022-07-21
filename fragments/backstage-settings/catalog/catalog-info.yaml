@@ -1,0 +1,34 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: #@ data.values.artifactId
+  annotations:
+    backstage.io/kubernetes-label-selector: #@ "app.kubernetes.io/part-of={}".format(data.values.artifactId)
+spec:
+  type: service
+  lifecycle: #@ data.values.lifecycle
+  owner: #@ data.values.team
+#@ if data.values.hasapidocs:
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: #@ "{}-api".format(data.values.artifactId)
+  description: #@ "The API Spec for {}".format(data.values.artifactId)
+  #@ if data.values.hasexternallinks:
+  links:
+    #@ for link in data.values.externallinks:
+    - url: #@ link
+      title: #@ "External link to {}".format(link)
+      icon: docs
+    #@ end
+  #@ end
+spec:
+  type: #@ data.values.apitype
+  lifecycle: #@ data.values.lifecycle
+  owner: #@ data.values.team
+  system: #@ data.values.system
+  definition: #@ data.values.apiDefinition
+#@ end

@@ -1,0 +1,94 @@
+accelerator:
+  displayName: Backstage Config
+
+  options:
+    - name: system
+      nputType: select
+      label: Maturity of the App
+      choices:
+      - value: "default-system"
+        text: Default System
+      - value: "super-awesome-system"
+        text: Super Awesome System
+      - value: "example-system"
+        text: Example System
+      - value: "yelb"
+        text: Yelb
+      defaultValue: "default-system"
+      required: true
+
+    - name: lifecycle
+      inputType: select
+      label: Maturity of the App
+      choices:
+      - value: "experimental"
+        text: Experimental
+      - value: "beta"
+        text: Beta
+      - value: "production"
+        text: Production
+      defaultValue: "experimental"
+      required: true
+
+    - name: team
+      inputType: select
+      label: Application Team
+      choices:
+      - value: "default-team"
+        text: default-team
+      - value: "team-a"
+        text: team-a
+      - value: "team-b"
+        text: team-b
+      defaultValue: "default-team"
+      required: true
+    
+    - name: hasapidocs
+      inputType: checkbox
+      label: "Does the Application have a Swagger Document"
+      display: true
+      dataType: boolean
+      defaultValue: false
+
+    - name: apitype
+      dependsOn: 
+        name: hasapidocs
+      inputType: select
+      label: API Type
+      choices:
+      - value: "openapi"
+        text: OpenAPI
+      - value: "grpc"
+        text: GRPC
+      - value: "graphql"
+        text: GraphQL
+      - value: "asyncapi"
+        text: AsyncAPI
+      defaultValue: "OpenAPI"
+      required: true
+    
+    - name: apiDefinition
+      inputType: textarea
+      dependsOn: 
+        name: hasapidocs
+      label: API Definition
+      required: true
+      defaultValue: |
+        openapi: "3.0.0"
+        info:
+          version: 1.0.0
+          title: Artist API
+          license:
+            name: MIT
+        servers:
+          - url: http://artist.spotify.net/v1
+        paths:
+          /artists:
+            get:
+              summary: List all artists
+
+engine:
+  merge:
+    - include: ["catalog/*.yaml"]
+      chain:
+        - type: YTT
