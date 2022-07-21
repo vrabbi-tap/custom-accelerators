@@ -86,7 +86,21 @@ accelerator:
           /artists:
             get:
               summary: List all artists
-
+    - name: hasexternallinks
+      inputType: checkbox
+      label: "Do you want to link to external links as well?"
+      display: true
+      dataType: boolean
+      defaultValue: false
+      dependsOn: 
+        name: hasapidocs
+    - name: externallinks
+      dataType: [string]
+      required: true
+      dependsOn: 
+        name: hasexternallinks
+      defaultValue:
+      - "https://terasky.com"
 engine:
   merge:
     - include: ["catalog/*.yaml"]
