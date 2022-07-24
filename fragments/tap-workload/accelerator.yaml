@@ -1,0 +1,162 @@
+accelerator:
+  displayName: TAP Initialize
+
+  options:
+    - name: appType
+      inputType: select
+      label: Application Type
+      choices:
+      - text: "Web Application"
+        value: web
+      - text: "App Server"
+        value: tcp
+      - text: "Backend Process"
+        value: queue
+      defaultValue: "web"
+      required: true
+
+    - name: sourceType
+      inputType: select
+      label: Source Type
+      choices:
+      - text: "Git Repository"
+        value: git
+      - text: "Maven Artifact"
+        value: maven
+      - text: "Pre Built Image"
+        value: oci
+      defaultValue: "git"
+      required: true
+
+    - name: buildType
+      inputType: select
+      label: Build Mechanism
+      choices:
+      - text: "Buildpacks (Recommended)"
+        value: tbs
+      - text: "Dockerfile (Kaniko)"
+        value: kaniko
+      dependsOn:
+        name: sourceType
+        value: git
+      defaultValue: tbs
+      required:uired: true
+
+    - name: gitRepository
+      dependsOn:
+        name: sourceType
+        value: git
+      inputType: text
+      label: Git Repository URL for the target project
+      description: The Git repository of the project where you will add the generated files
+      required: true
+      defaultValue: https://github.com/vrabbi/java-web-app
+
+    - name: gitBranch
+      dependsOn:
+        name: sourceType
+        value: git
+      inputType: text
+      label: Git Branch for the target project
+      defaultValue: main
+      description: The Git branch of the project where you will add the generated files
+      required: true
+
+    - name: gitSubpath
+      dependsOn:
+        name: sourceType
+        value: git
+      inputType: text
+      label: Subpath in Git Repo with source code
+      defaultValue: /
+      description: The Subpath in Git Repo with source code for this new micro service
+      required: true
+
+    - name: dockerFilePath
+      dependsOn:
+        name: buildType
+        value: kaniko
+      inputType: text
+      label: Path to Dockerfile in Git Repo
+      defaultValue: ./Dockerfile
+      description: The Path to the Dockerfile in the Git Repo for this new micro service
+      required: true
+
+    - name: imageUrl
+      dependsOn:
+        name: sourceType
+        value: oci
+      inputType: text
+      label: Pre Built Image URI
+      defaultValue: ghcr.io/vrabbi/tanzu-java-web-app:b1.20211111.192152
+      required: true
+      description: The URI to the Pre Built Image to use for this workload
+
+    - name: mavenGroupId
+      dependsOn:
+        name: sourceType
+        value: maven
+      inputType: text
+      label: Maven Artifact Group ID
+      defaultValue: com.example
+      required: true
+      description: The Group ID for the Maven artifact
+
+    - name: mavenArtifactId
+      dependsOn:
+        name: sourceType
+        value: maven
+      inputType: text
+      label: Maven Artifact ID
+      defaultValue: spring-boot-initial
+      required: true
+      description: The ID of the source Maven artifact
+
+    - name: mavenArtifactVersion
+      dependsOn:
+        name: sourceType
+        value: maven
+      inputType: text
+      label: Maven Artifact Version
+      defaultValue: RELEASE
+      required: true
+      description: The Artifact Version (either RELEASE or a specific version)
+
+    - name: mavenArtifactType
+      dependsOn:
+        name: sourceType
+        value: maven
+      inputType: select
+      label: Maven Artifact Type
+      defaultValue: jar
+      choices:
+      - text: jar
+        value: jar
+      - text: war
+        value: war
+      - text: pom
+        value: pom
+      required: true
+      description: The Type of Maven Artifact being configured
+
+    - name: mavenArtifactClassifier
+      dependsOn:
+        name: sourceType
+        value: maven
+      inputType: text
+      label: Maven Artifact Classifier
+      required: false
+      description: Classifier distinguishes artifacts that were built from the same POM but differ in content
+
+    - name: includeHasTests
+      inputType: checkbox
+      label: "Add Testing and Scanning to Workload?"
+      dataType: boolean
+      defaultValue: true
+
+engine:
+  merge:
+    - include: [".tanzuignore"]
+    - include: ["config/workload.yaml"]
+      chain:
+        - type: YTT

@@ -1,0 +1,48 @@
+#@ load("@ytt:data","data")
+---
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: #@ data.values.artifactId
+  labels:
+    apps.tanzu.vmware.com/workload-type: #@ data.values.appType
+    app.kubernetes.io/part-of: #@ data.values.artifactId
+    #@ if data.values.includeHasTests:
+    apps.tanzu.vmware.com/has-tests: "true"
+    #@ end
+spec:
+  source:
+    #@ if data.values.sourceType == "git":
+    git:
+      url: #@ data.values.gitRepository
+      ref:
+        branch: #@ data.values.gitBranch
+    #@ end
+    #@ if data.values.gitSubpath != "/":
+    subPath: #@ data.values.gitSubpath
+    #@ end
+    #@ if data.values.sourceType == "oci":
+    image: #@ data.values.imageUrl
+    #@ end
+  #@ if data.values.sourceType == "maven" || data.values.buildType == "kaniko":
+  params:
+    #@ if data.values.sourceType == "maven":
+    - name: maven
+      value:
+        artifactId: #@ data.values.mavenArtifactId
+        groupId: #@ data.values.mavenGroupId
+        type: #@ data.values.mavenArtifactType
+        version: #@ data.values.mavenArtifactVersion
+        #@ if data.values.mavenArtifactClassifier:
+        classifier: #@ data.values.mavenArtifactClassifier
+        #@ end
+    #@ end
+    #@ if data.values.buildType == "kaniko":
+    - name: dockerfile
+      value: #@ data.values.dockerFilePath
+    #@ if data.values.gitSubpath != "/":
+    - name: docker_build_context
+      value: #@ data.values.gitSubpath
+    #@ end
+    #@ end
+  #@ end

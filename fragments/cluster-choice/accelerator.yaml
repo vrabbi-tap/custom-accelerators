@@ -1,0 +1,26 @@
+accelerator:
+  displayName: Cluster Selection
+
+  options:
+    - name: cluster
+      inputType: select
+      label: Inner Loop Cluster
+      choices:
+      - text: "Local TCE Cluster"
+        value: kind-tce-tap
+      - text: "TKG Dev Cluster"
+        value: tkg-iternate-cluster-admin@tkg-iterate-cluster
+      - text: "EKS Dev Cluster"
+        value: eks-example-context-name
+      - text: "GKE Dev Cluster"
+        value: gke-kube-context-example
+      defaultValue: "kind-tce-tap"
+      required: true
+engine:
+  merge:
+    - include: [ "config/workload.yaml" ]
+      chain:
+      - type: ReplaceText
+        substitutions:
+          - text: "kubernetes-context-name"
+            with: #cluster

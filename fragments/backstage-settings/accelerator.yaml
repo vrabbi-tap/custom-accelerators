@@ -3,8 +3,8 @@ accelerator:
 
   options:
     - name: system
-      nputType: select
-      label: Maturity of the App
+      inputType: select
+      label: System
       choices:
       - value: "default-system"
         text: Default System
