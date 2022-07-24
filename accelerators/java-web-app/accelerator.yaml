@@ -108,10 +108,15 @@ engine:
     - type: InvokeFragment
       reference: backstage-settings
     - type: InvokeFragment
-      reference: cluster-choice
-    - type: InvokeFragment
       reference: java-version
     - type: InvokeFragment
       reference: tap-workload
     - type: InvokeFragment
       reference: live-update
+    - type: InvokeFragment
+      reference: cluster-choice
+    - type: ReplaceText
+      condition: '#liveUpdateIDESupport'
+      substitutions:
+      - text: kubernetes-context-name
+        with: "#cluster"
