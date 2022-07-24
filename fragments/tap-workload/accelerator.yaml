@@ -145,7 +145,8 @@ accelerator:
         value: maven
       inputType: text
       label: Maven Artifact Classifier
-      required: false
+      required: true
+      defaultValue: CHANGEME
       description: Classifier distinguishes artifacts that were built from the same POM but differ in content
 
     - name: includeHasTests
