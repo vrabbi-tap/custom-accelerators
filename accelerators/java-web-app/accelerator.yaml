@@ -97,16 +97,19 @@ accelerator:
 engine:
   merge:
   - include: [ "**/*" ]
-    exclude: [ "config/*.yaml", "Tiltfile", "README.md", "grype.yaml", "catalog/*.yaml", ".github/workflows/**" ]
-
+    exclude: [ "config/*.yaml", "Tiltfile", "README.md", "grype.yaml", "catalog/*.yaml", ".github/workflows/**", "Dockerfile" ]
   - include: [ "README.md" ]
     chain:
     - type: ReplaceText
       substitutions:
       - text: tanzu-java-web-app
         with: "#artifactId"
+  - include: [ "catalog/*.yaml" ]
+    chain:
     - type: InvokeFragment
       reference: backstage-settings
+  - include: [ "config/*.yaml", "pom.xml" ]
+    chain:
     - type: InvokeFragment
       reference: java-version
     - type: InvokeFragment
@@ -120,3 +123,8 @@ engine:
       substitutions:
       - text: kubernetes-context-name
         with: "#cluster"
+    - include: ["Dockerfile"]
+      condition: "#buildType == 'kaniko'"
+      chain:
+      - type: RewritePath
+        rewriteTo: #dockerFilePath
