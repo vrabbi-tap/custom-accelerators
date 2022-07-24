@@ -24,7 +24,7 @@ spec:
     #@ if data.values.sourceType == "oci":
     image: #@ data.values.imageUrl
     #@ end
-  #@ if data.values.sourceType == "maven" || data.values.buildType == "kaniko":
+  #@ if data.values.sourceType == "maven" or data.values.buildType == "kaniko":
   params:
     #@ if data.values.sourceType == "maven":
     - name: maven
