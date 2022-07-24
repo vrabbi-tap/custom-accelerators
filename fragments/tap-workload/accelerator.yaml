@@ -158,8 +158,6 @@ accelerator:
 engine:
   merge:
     - include: [".tanzuignore"]
-    - include: ["Dockerfile"]
-      condition: "#buildType == 'kaniko'"
     - include: ["config/workload.yaml"]
       chain:
         - type: YTT
