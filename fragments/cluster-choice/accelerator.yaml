@@ -14,11 +14,3 @@ accelerator:
       text: "gke-kube-context-example"
     defaultValue: "kind"
     required: true
-engine:
-  merge:
-  - include: ["config/workload.yaml"]
-    chain:
-    - type: ReplaceText
-      substitutions:
-      - text: "kubernetes-context-name"
-        with: #cluster
