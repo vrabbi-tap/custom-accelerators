@@ -16,11 +16,83 @@ accelerator:
     defaultValue: dev.local
     required: true
   imports:
-    - name: backstage-settings
-    - name: cluster-choice
-    - name: java-version
-    - name: tap-workload
-    - name: live-update
+  - name: backstage-settings
+    expose:
+    - name: apitype
+      dependsOn:
+        name: hasapidocs
+    - name: apiDefinition
+      dependsOn:
+        name: hasapidocs
+    - name: hasexternallinks
+      dependsOn:
+        name: hasapidocs
+    - name: hasexternallinks
+      dependsOn:
+        name: hasapidocs
+    - name: externallinks
+      dependsOn:
+        name: hasexternallinks
+    - name: "*"
+  - name: cluster-choice
+    expose:
+    - name: "*"
+  - name: java-version
+    expose:
+    - name: "*"
+  - name: tap-workload
+    expose:
+    - name: buildType
+      dependsOn:
+        name: sourceType
+        value: git
+    - name: gitRepository
+      dependsOn:
+        name: sourceType
+        value: git
+    - name: gitBranch
+      dependsOn:
+        name: sourceType
+        value: git
+    - name: gitSubpath
+      dependsOn:
+        name: sourceType
+        value: git
+    - name: dockerFilePath
+      dependsOn:
+        name: buildType
+        value: kaniko
+    - name: imageUrl
+      dependsOn:
+        name: sourceType
+        value: oci
+    - name: mavenGroupId
+      dependsOn:
+        name: sourceType
+        value: maven
+    - name: mavenArtifactId
+      dependsOn:
+        name: sourceType
+        value: maven
+    - name: mavenArtifactVersion
+      dependsOn:
+        name: sourceType
+        value: maven
+    - name: mavenArtifactType
+      dependsOn:
+        name: sourceType
+        value: maven
+    - name: mavenArtifactClassifier
+      dependsOn:
+        name: sourceType
+        value: maven
+    - name: "*"
+  - name: live-update
+    expose:
+    - name: sourceRepositoryPrefix
+      dependsOn:
+        name: liveUpdateIDESupport
+    - name: "*"
 
 engine:
   merge:
