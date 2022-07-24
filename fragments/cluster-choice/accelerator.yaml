@@ -7,7 +7,7 @@ accelerator:
     - text: "Local TCE Cluster"
       value: "kind-tce-tap"
     - text: "TKG Dev Cluster"
-      value: "tkg-iternate-cluster-admin@tkg-iterate-cluster"
+      value: "tkg-iternate-cluster-admin-tkg-iterate-cluster"
     - text: "EKS Dev Cluster"
       value: "eks-example-context-name"
     - text: "GKE Dev Cluster"
