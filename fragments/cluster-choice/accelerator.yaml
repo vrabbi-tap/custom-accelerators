@@ -4,15 +4,15 @@ accelerator:
     inputType: select
     label: Inner Loop Cluster
     choices:
-    - text: "Local TCE Cluster"
-      value: "kind-tce-tap"
-    - text: "TKG Dev Cluster"
-      value: "tkg-iternate-cluster-admin-tkg-iterate-cluster"
-    - text: "EKS Dev Cluster"
-      value: "eks-example-context-name"
-    - text: "GKE Dev Cluster"
-      value: "gke-kube-context-example"
-    defaultValue: "kind-tce-tap"
+    - value: "kind"
+      text: "kind-tce-tap"
+    - value: "tkg"
+      text: "tkg-iternate-cluster-admin-tkg-iterate-cluster"
+    - value: "eks"
+      text: "eks-example-context-name"
+    - value: "gke"
+      text: "gke-kube-context-example"
+    defaultValue: "kind"
     required: true
 engine:
   merge:
