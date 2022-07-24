@@ -161,3 +161,8 @@ engine:
     - include: ["config/workload.yaml"]
       chain:
         - type: YTT
+    - include: ["Dockerfile"]
+      condition: "#buildType == 'kaniko'"
+      chain:
+      - type: RewritePath
+        rewriteTo: #dockerFilePath
