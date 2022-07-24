@@ -125,3 +125,7 @@ engine:
         with: "#cluster"
   - include: ["Dockerfile"]
     condition: "#buildType == 'kaniko'"
+    chain:
+    - type: RewritePath
+      rewriteTo: "#dockerFilePath"
+      matchOrFail: false
