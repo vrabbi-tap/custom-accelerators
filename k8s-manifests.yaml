@@ -1,0 +1,71 @@
+apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
+kind: Accelerator
+metadata:
+  name: modular-java-app
+  namespace: accelerator-system
+spec:
+  git:
+    ref:
+      branch: master
+    subPath: accelerators/java-web-app
+    url: https://github.com/vrabbi/custom-accelerators
+---
+apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
+kind: Fragment
+metadata:
+  name: tap-workload
+  namespace: accelerator-system
+spec:
+  git:
+    ref:
+      branch: master
+    subPath: fragments/tap-workload
+    url: https://github.com/vrabbi/custom-accelerators
+---
+apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
+kind: Fragment
+metadata:
+  name: live-update
+  namespace: accelerator-system
+spec:
+  git:
+    ref:
+      branch: master
+    subPath: fragments/live-update
+    url: https://github.com/vrabbi/custom-accelerators
+---
+apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
+kind: Fragment
+metadata:
+  name: java-version
+  namespace: accelerator-system
+spec:
+  git:
+    ref:
+      branch: master
+    subPath: fragments/java
+    url: https://github.com/vrabbi/custom-accelerators
+---
+apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
+kind: Fragment
+metadata:
+  name: cluster-choice
+  namespace: accelerator-system
+spec:
+  git:
+    ref:
+      branch: master
+    subPath: fragments/cluster-choice
+    url: https://github.com/vrabbi/custom-accelerators
+---
+apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
+kind: Fragment
+metadata:
+  name: backstage-settings
+  namespace: accelerator-system
+spec:
+  git:
+    ref:
+      branch: master
+    subPath: fragments/backstage-settings
+    url: https://github.com/vrabbi/custom-accelerators

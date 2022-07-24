@@ -1,6 +1,6 @@
 accelerator:
-  displayName: Modular Java Web App
-  description: A sample Modular Spring Boot web application built with Tanzu supply-chain
+  displayName: Modular Java App
+  description: A sample Modular Spring Boot application built with Tanzu supply-chain
   iconUrl: https://github.com/sample-accelerators/icons/raw/master/icon-boot.png
   tags:
   - java
@@ -8,6 +8,7 @@ accelerator:
   - web
   - tanzu
   - terasky
+  - vrabbi
 
   options:
   - name: repositoryPrefix
