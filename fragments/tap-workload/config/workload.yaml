@@ -33,7 +33,7 @@ spec:
         groupId: #@ data.values.mavenGroupId
         type: #@ data.values.mavenArtifactType
         version: #@ data.values.mavenArtifactVersion
-        #@ if data.values.mavenArtifactClassifier:
+        #@ if hasattr(data.values, "mavenArtifactClassifier"):
         classifier: #@ data.values.mavenArtifactClassifier
         #@ end
     #@ end
