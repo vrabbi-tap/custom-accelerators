@@ -123,8 +123,3 @@ engine:
       substitutions:
       - text: kubernetes-context-name
         with: "#cluster"
-  - include: ["Dockerfile"]
-    condition: "#buildType == 'kaniko'"
-    chain:
-    - type: RewritePath
-      rewriteTo: #dockerFilePath
