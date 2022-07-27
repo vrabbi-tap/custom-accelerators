@@ -7,7 +7,7 @@ accelerator:
       label: Workload Namespace
       defaultValue: "default"
       required: true
-      
+      validationRegex: "^[a-z0-9-]+$"
     - name: appType
       inputType: select
       label: Application Type
