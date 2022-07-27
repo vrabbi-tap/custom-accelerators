@@ -4,13 +4,13 @@ accelerator:
     inputType: select
     label: Inner Loop Cluster
     choices:
-    - value: "kind"
-      text: "kind-tce-tap"
-    - value: "tkg"
-      text: "tkg-iternate-cluster-admin-tkg-iterate-cluster"
-    - value: "eks"
-      text: "eks-example-context-name"
-    - value: "gke"
-      text: "gke-kube-context-example"
-    defaultValue: "kind"
+    - value: "kind-tce-tap"
+      text: "Local TAP on TCE Cluster"
+    - value: "tap-mc-iterate-admin@tap-mc-iterate"
+      text: "Iterate Cluster"
+    - value: "tap-mc-build-admin@tap-mc-build"
+      text: "Build Cluster"
+    - value: "tap-full-admin@tap-full"
+      text: "Single Cluster TAP"
+    defaultValue: "tap-mc-iterate-admin@tap-mc-iterate"
     required: true
