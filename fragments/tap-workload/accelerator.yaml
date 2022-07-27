@@ -160,6 +160,48 @@ accelerator:
       label: "Add Testing and Scanning to Workload?"
       dataType: boolean
       defaultValue: true
+    
+    - name: hasServiceClaims
+      inputType: checkbox
+      label: "Add Service Binding to Workload?"
+      dataType: boolean
+      defaultValue: false
+      
+    - name: serviceClaimName
+      dependsOn:
+        name: hasServiceClaims
+      inputType: text
+      label: Service Claim Name
+      required: true
+      defaultValue: CHANGEME
+      description: Name of the service claim to attach to the workload
+      
+    - name: serviceClaimRefApiVersion
+      dependsOn:
+        name: hasServiceClaims
+      inputType: text
+      label: API Version Of The Claimed Service
+      required: true
+      defaultValue: CHANGEME
+      description: API Version of the Claimed Resource
+      
+    - name: serviceClaimRefKind
+      dependsOn:
+        name: hasServiceClaims
+      inputType: text
+      label: Resource Kind Being Claimed
+      required: true
+      defaultValue: CHANGEME
+      description: The Kind of resource being claimed
+      
+    - name: serviceClaimRefName
+      dependsOn:
+        name: hasServiceClaims
+      inputType: text
+      label: Service Name Being Claimed
+      required: true
+      defaultValue: CHANGEME
+      description: The name of the kubernetes object being claimed
 
 engine:
   merge:
