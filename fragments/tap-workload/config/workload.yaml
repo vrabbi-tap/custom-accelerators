@@ -25,6 +25,14 @@ spec:
     #@ if data.values.sourceType == "oci":
     image: #@ data.values.imageUrl
     #@ end
+  #@ if data.values.hasServiceClaims:
+  serviceClaims:
+    - name: #@ data.values.serviceClaimName
+      ref:
+        apiVersion: #@ data.values.serviceClaimRefApiVersion
+        kind: #@ data.values.serviceClaimRefKind
+        name: #@ data.values.serviceClaimRefName
+  #@ end
   #@ if data.values.sourceType == "maven" or data.values.buildType == "kaniko":
   params:
     #@ if data.values.sourceType == "maven":
