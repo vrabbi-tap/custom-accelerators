@@ -17,7 +17,7 @@ accelerator:
     defaultValue: dev.local
     required: true
   imports:
-  - name: backstage-settings
+  - name: backstage-settings-fragment
     expose:
     - name: apitype
       dependsOn:
@@ -35,13 +35,13 @@ accelerator:
       dependsOn:
         name: hasexternallinks
     - name: "*"
-  - name: cluster-choice
+  - name: cluster-choice-fragment
     expose:
     - name: "*"
-  - name: java-version
+  - name: java-version-fragment
     expose:
     - name: "*"
-  - name: tap-workload
+  - name: tap-workload-fragment
     expose:
     - name: buildType
       dependsOn:
@@ -88,7 +88,7 @@ accelerator:
         name: sourceType
         value: maven
     - name: "*"
-  - name: live-update
+  - name: live-update-fragment
     expose:
     - name: sourceRepositoryPrefix
       dependsOn:
@@ -108,17 +108,17 @@ engine:
   - include: [ "catalog/*.yaml" ]
     chain:
     - type: InvokeFragment
-      reference: backstage-settings
+      reference: backstage-settings-fragment
   - include: [ "config/*.yaml", "pom.xml" ]
     chain:
     - type: InvokeFragment
-      reference: java-version
+      reference: java-version-fragment
     - type: InvokeFragment
-      reference: tap-workload
+      reference: tap-workload-fragment
     - type: InvokeFragment
-      reference: live-update
+      reference: live-update-fragment
     - type: InvokeFragment
-      reference: cluster-choice
+      reference: cluster-choice-fragment
     - type: ReplaceText
       condition: '#liveUpdateIDESupport'
       substitutions:
