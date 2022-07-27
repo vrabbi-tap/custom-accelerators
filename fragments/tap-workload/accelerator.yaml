@@ -2,6 +2,12 @@ accelerator:
   displayName: TAP Initialize
 
   options:
+    - name: namespace
+      inputType: text
+      label: Workload Namespace
+      defaultValue: "default"
+      required: true
+      
     - name: appType
       inputType: select
       label: Application Type
