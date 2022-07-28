@@ -194,6 +194,7 @@ accelerator:
     defaultValue: "cn"
 
 engine:
+  merge:
   - include: [ "authserver.yaml" ]
     chain:
     - type: YTT
