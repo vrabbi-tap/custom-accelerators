@@ -3,7 +3,7 @@
 apiVersion: carto.run/v1alpha1
 kind: Workload
 metadata:
-  name: #@ data.values.artifactIda
+  name: #@ data.values.artifactId
   namespace: #@ data.values.namespace
   labels:
     apps.tanzu.vmware.com/workload-type: #@ data.values.appType
