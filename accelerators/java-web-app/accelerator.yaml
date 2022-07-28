@@ -114,13 +114,14 @@ engine:
       reference: backstage-settings-fragment
   - include: [ "config/*.yaml", "pom.xml" ]
     chain:
+    - type: Let
+      symbols:
+      - name: hasServiceClaims
+        expression: false
     - type: InvokeFragment
       reference: java-version-fragment
     - type: InvokeFragment
       reference: tap-workload-fragment
-      let:
-      - name: hasServiceClaims
-        expression: false
     - type: InvokeFragment
       reference: live-update-fragment
     - type: InvokeFragment
