@@ -11,6 +11,18 @@ spec:
     url: https://github.com/vrabbi-tap/custom-accelerators
 ---
 apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
+kind: Accelerator
+metadata:
+  name: app-sso-java-sample
+  namespace: accelerator-system
+spec:
+  git:
+    ref:
+      branch: main
+    subPath: accelerators/app-sso-java-app
+    url: https://github.com/vrabbi-tap/custom-accelerators
+---
+apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
 kind: Fragment
 metadata:
   name: tap-workload-fragment
