@@ -1,0 +1,33 @@
+#@ load("@ytt:data", "data")
+
+---
+apiVersion: sso.apps.tanzu.vmware.com/v1alpha1
+kind: ClientRegistration
+metadata:
+  name: #@ data.values.artifactId
+  namespace: #@ data.values.namespace
+spec:
+  authServerSelector:
+    matchLabels:
+      name: #@ data.values.authServer
+  clientAuthenticationMethod: basic
+  authorizationGrantTypes: #@ data.values.grantTypes
+  redirectURIs:
+  - #@ "https://{}-{}.{}/login/oauth2/code/{}".format(data.values.artifactId, data.values.namespace, data.values.domainSuffix, data.values.artifactId)
+  - #@ "http://127.0.0.1:8080/login/oauth2/code/{}".format(data.values.artifactId)
+  scopes:
+  #@ for name in data.values.scopes:
+  - name: #@ name
+  #@ end
+---
+apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+kind: ResourceClaim
+metadata:
+  name: #@ data.values.artifactId
+  namespace: #@ data.values.namespace
+spec:
+  ref:
+    apiVersion: sso.apps.tanzu.vmware.com/v1alpha1
+    kind: ClientRegistration
+    name: #@ data.values.artifactId
+    namespace: #@ data.values.namespace

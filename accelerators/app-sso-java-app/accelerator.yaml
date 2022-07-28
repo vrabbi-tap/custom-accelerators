@@ -1,0 +1,158 @@
+accelerator:
+  displayName: AppSSO Java Web App
+  description: Spring Boot application that supports single sign-on (SSO) via Spring Security OAuth 2 Client library.
+  iconUrl: data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBvbHlnb24gcG9pbnRzPSI3LjQyNCAwLjIyIDcuNDI0IDAuOTI1IDIuNjEgMy4yNDMgMi4wNTcgMi44MDMgNy40MjQgMC4yMiIgZmlsbD0iIzAwYzFkNSIvPjxwb2x5Z29uIHBvaW50cz0iMTMuNzgyIDIuODAzIDEzLjIzIDMuMjQzIDguNDE2IDAuOTI1IDguNDE2IDAuMjIgMTMuNzgyIDIuODAzIiBmaWxsPSIjMDBjMWQ1Ii8+PHBvbHlnb24gcG9pbnRzPSIxNS41MjIgOC40ODggMTQuODcgOC40ODggMTMuODUgNC4wMTggMTQuNDAxIDMuNTggMTUuNTIyIDguNDg4IiBmaWxsPSIjMWQ0MjhhIi8+PHBvbHlnb24gcG9pbnRzPSIxLjk5IDQuMDE4IDAuODAxIDkuMjI4IDAuMTEzIDkuMzg2IDEuNDM5IDMuNTggMS45OSA0LjAxOCIgZmlsbD0iIzFkNDI4YSIvPjxwb2x5Z29uIHBvaW50cz0iNC4zNTMgMTQuMzc0IDQuMDQ3IDE1LjAxIDAuMzM0IDEwLjM1NCAxLjAyMSAxMC4xOTYgNC4zNTMgMTQuMzc0IiBmaWxsPSIjNzhiZTIwIi8+PHBvbHlnb24gcG9pbnRzPSI1LjI0OCAxNC44MDYgNy45ODIgMTQuODA2IDcuOTgyIDE1LjQ0MSA0Ljk0MiAxNS40NDEgNS4yNDggMTQuODA2IiBmaWxsPSIjMDBjMWQ1Ii8+PHBhdGggZD0iTTExLjQ1NiwxMS42di0uMDY0bTEuMDA1LTEuMjIxSDEyLjQzTTEwLjksMTIuMjM2aDB2MFptLjU1OC0uNjM2di0uMDY0IiBmaWxsPSJub25lIi8+PHBvbHlnb24gcG9pbnRzPSIxMy42OTEgOC40ODggMTMuMDM5IDguNDg4IDEyLjMgNS4yNSAxMi4zIDUuMjUgMTIuMTc2IDQuNzA4IDExLjY4NCA0LjQ3MSA4LjQxNiAyLjg5NyA3LjkyIDIuNjU4IDcuNDI0IDIuODk3IDQuMTU2IDQuNDcxIDMuNjYzIDQuNzA4IDMuNTQgNS4yNSAyLjczNCA4Ljc4MiAyLjYxMiA5LjMxNCAyLjk1OSA5Ljc0OSA1LjIxNiAxMi41NzkgNS41NTggMTMuMDA3IDcuOTgyIDEzLjAwNyA3Ljk4MiAxMy42NDMgNS4yNTIgMTMuNjQzIDQuOTEgMTMuMjE1IDIuMjczIDkuOTA3IDEuOTI0IDkuNDcxIDIuMDQ2IDguOTQxIDIuOTg4IDQuODExIDMuMTEyIDQuMjY5IDMuNjA0IDQuMDMyIDcuNDI0IDIuMTkyIDcuOTIgMS45NTMgOC40MTYgMi4xOTIgMTIuMjM2IDQuMDMyIDEyLjcyOCA0LjI2OSAxMi44NTIgNC44MTEgMTMuNjkxIDguNDg4IiBmaWxsPSIjMDA5MWRhIi8+PHBhdGggZD0iTTE0LjEwNywxMi4wNjRoLS41NTZ2LS43M2gtMi4xdi43M0g5LjE3NFYxNS4wNWg0LjYxN3YuNzNoMi4xVjEzLjY4NWgtMi4xdi43M0g5LjgwOVYxMi43aDEuNjQ3di43M2gyLjF2LS42MTloLS4wMDVsLjAwNS0uMDA3di0uMWgyLjMzNlY5LjY3OUgxMS4yNjl2LS43M2gtMi4xdjIuMWgyLjF2LS43MjloMy45ODJ2MS43NDlIMTQuMTQybS0zLjUwOC0xLjY1NUg5LjgwOVY5LjU4NGguODI1Wm0zLjc5MiwzLjkxMWguODI1di44MjVoLS44MjVaTTEwLjksMTIuMjM2aDBsMCwwWm0yLjAxNi41NTloLS44MjVWMTEuOTdoLjgyNVoiIGZpbGw9IiMxZDQyOGEiLz48cG9seWdvbiBwb2ludHM9IjEwLjkgMTIuMjMzIDEwLjkgMTIuMjM2IDEwLjg5OCAxMi4yMzYgMTAuOSAxMi4yMzMiIGZpbGw9IiMxZDQyOGEiLz48cGF0aCBkPSJNMTMuNTQ2LDEyLjgxMWguMDA1VjEyLjhaIiBmaWxsPSIjMWQ0MjhhIi8+PC9zdmc+
+  tags:
+    - sso
+    - authentication
+    - openid
+    - spring
+    - java
+
+  options:
+  - name: domainSuffix
+    inputType: select
+    label: Application Domain Suffix
+    choices:
+    - value: run.vrabbi.cloud
+      text: run.vrabbi.cloud
+    - value: dev.vrabbi.cloud
+      text: dev.vrabbi.cloud
+    - value: qa.vrabbi.cloud
+      text: qa.vrabbi.cloud
+    - value: prod.vrabbi.cloud
+      text: prod.vrabbi.cloud
+    defaultValue: run.vrabbi.cloud
+    description: This is used for building the redirect URI in the Client Registration for App SSO
+    required: true
+
+  - name: authServer
+    inputType: select
+    label: Authentication Server To Use
+    choices:
+    - value: demo-ldap-authserver
+      text: Active Directory
+    - value: my-authserver-example
+      text: Local Users (Insecure)
+    - value: workspace-one-authserver
+      text: WorkspaceONE
+    defaultValue: demo-ldap-authserver
+    description: This is the Auth Server you want to connect to your application.
+    required: true
+
+  - name: grantTypes
+    inputType: checkbox
+    display: true
+    dataType: [string]
+    defaultValue:
+      - authorization_code
+    choices:
+      - text: authorization_code
+        value: authorization_code
+      - text: client_credentials
+        value: client_credentials
+      - text: refresh_token
+        value: refresh_token
+
+  - name: scopes
+    inputType: checkbox
+    display: true
+    dataType: [string]
+    defaultValue:
+      - openid
+    choices:
+      - text: openid
+        value: openid
+      - text: email
+        value: email
+      - text: profile
+        value: profile
+      - text: roles
+        value: roles
+
+  imports:
+  - name: cluster-choice-fragment
+    expose:
+    - name: "*"
+
+  - name: tap-workload-fragment
+    expose:
+    - name: namespace
+    - name: appType
+    - name: includeHasTests
+    - name: gitRepository
+    - name: gitBranch
+    - name: gitSubpath
+
+  - name: live-update-fragment
+    expose:
+    - name: sourceRepositoryPrefix
+      dependsOn:
+        name: liveUpdateIDESupport
+    - name: "*"
+
+  - name: backstage-settings-fragment
+    expose:
+    - name: apitype
+      dependsOn:
+        name: hasapidocs
+    - name: apiDefinition
+      dependsOn:
+        name: hasapidocs
+    - name: hasexternallinks
+      dependsOn:
+        name: hasapidocs
+    - name: hasexternallinks
+      dependsOn:
+        name: hasapidocs
+    - name: externallinks
+      dependsOn:
+        name: hasexternallinks
+    - name: "*"
+engine:
+  let:
+  - name: hasServiceClaims
+    expression: true
+  - name: serviceClaimName
+    expression: '#artifactId'
+  - name: serviceClaimRefApiVersion
+    expression: "'services.apps.tanzu.vmware.com/v1alpha1'"
+  - name: serviceClaimRefKind
+    expression: "'ResourceClaim'"
+  - name: serviceClaimRefName
+    expression: '#artifactId'
+  merge:
+  - include: [ "**/*" ]
+    exclude: [ "config/*.yaml", "README.md" ]
+  - include: [ "README.md" ]
+    chain:
+    - type: ReplaceText
+      substitutions:
+      - text: "AppSSO Starter Java"
+        with: "#artifactId"
+  - include: [ "catalog/*.yaml" ]
+    chain:
+    - type: InvokeFragment
+      reference: backstage-settings-fragment
+  - include: [ "Tiltfile" ]
+    chain:
+    - type: InvokeFragment
+      reference: tap-workload-fragment
+    - type: InvokeFragment
+      reference: live-update-fragment
+    - type: InvokeFragment
+      reference: cluster-choice-fragment
+    - type: ReplaceText
+      condition: '#liveUpdateIDESupport'
+      substitutions:
+      - text: kubernetes-context-name
+        with: "#cluster"
+  - include: [ "config/*.yaml" ]
+    chain:
+    - type: InvokeFragment
+      reference: tap-workload-fragment
+  - include: [ "client.yaml" ]
+    chain:
+    - type: YTT
+    - type: RewritePath
+      rewriteTo: "'config/client.yaml'"
