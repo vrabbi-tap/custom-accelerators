@@ -1,0 +1,111 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: sso.apps.tanzu.vmware.com/v1alpha1
+kind: AuthServer
+metadata:
+  name: #@ data.values.artifactId
+  namespace: #@ data.values.namespace
+  labels:
+    name: #@ data.values.artifactId
+  annotations:
+    sso.apps.tanzu.vmware.com/allow-client-namespaces: #@ ",".join(data.values.allowedNamespaces)
+    #@ if data.values.allowHttpIssuer:
+    sso.apps.tanzu.vmware.com/allow-unsafe-issuer-uri: ""
+    #@ end
+    #@ if data.values.idpType == "internal":
+    sso.apps.tanzu.vmware.com/allow-unsafe-identity-provider: ""
+    #@ end
+spec:
+  replicas: 1
+  #@ if data.values.allowHttpIssuer:
+  issuerURI: #@ "http://{}".format(data.values.authserverFqdn)
+  #@ else:
+  issuerURI: #@ "https://{}".format(data.values.authserverFqdn)
+  #@ end
+  tokenSignature:
+    signAndVerifyKeyRef:
+      name: #@ "{}-signing-key".format(data.values.artifactId)
+  identityProviders:
+    #@ if data.values.idpType == "internal":
+    - name: "internal"
+      internalUnsafe:
+        users:
+          - username: "user"
+            password: "$2a$10$201z9o/tHlocFsHFTo0plukh03ApBYe4dRiXcqeyRQH6CNNtS8jWK"
+    #@ end
+    #@ if data.values.idpType == "ldap":
+    - name: ldap
+      ldap:
+        server:
+          scheme: #@ data.values.ldapScheme
+          host: #@ data.values.ldapHost
+          port: #@ data.values.ldapPort
+          base: #@ data.values.ldapBaseDn
+        bind:
+          dn: #@ data.values.bindDn
+          passwordRef:
+            name: ldap-password
+        user:
+          searchFilter: #@ data.values.userSearchFilterAttribute + "={0}"
+          searchBase: #@ data.values.userSearchBaseDn
+        group:
+          searchFilter: #@ data.values.groupSearchFilterAttribute + "={0}"
+          searchBase: #@ data.values.groupSearchBaseDn
+          searchSubTree: #@ data.values.groupSearchSubTree
+          searchDepth: #@ data.values.groupSearchDepth
+          roleAttribute: #@ data.values.groupRoleAttr
+    #@ end
+#@ if data.values.idpType == "ldap":
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ldap-password
+  namespace: #@ data.values.namespace
+stringData:
+  password: #@ data.values.bindUserPassword
+#@ end
+---
+apiVersion: secretgen.k14s.io/v1alpha1
+kind: RSAKey
+metadata:
+  name: #@ "{}-signing-key".format(data.values.artifactId)
+  namespace: #@ data.values.namespace
+spec:
+  secretTemplate:
+    type: Opaque
+    stringData:
+      key.pem: $(privateKey)
+      pub.pem: $(publicKey)
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: #@ data.values.artifactId
+  namespace: #@ data.values.namespace
+spec:
+  selector:
+    app.kubernetes.io/part-of: #@ data.values.artifactId
+    app.kubernetes.io/component: authorization-server
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: #@ data.values.artifactId
+  namespace: #@ data.values.namespace
+spec:
+  virtualhost:
+    fqdn: #@ data.values.authserverFqdn
+    #@ if not data.values.allowHttpIssuer:
+    tls:
+      secretName: #@ data.values.tlsSecretName
+    #@ end
+  routes:
+    - conditions:
+        - prefix: /
+      services:
+        - name: #@ data.values.artifactId
+          port: 80

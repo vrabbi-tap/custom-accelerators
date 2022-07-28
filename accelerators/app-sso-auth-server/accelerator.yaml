@@ -1,0 +1,199 @@
+accelerator:
+  displayName: App SSO Auth Server Generator
+  description: Form to help define an App SSO Auth Server
+  iconUrl: data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiI+PHBvbHlnb24gcG9pbnRzPSI3LjQyNCAwLjIyIDcuNDI0IDAuOTI1IDIuNjEgMy4yNDMgMi4wNTcgMi44MDMgNy40MjQgMC4yMiIgZmlsbD0iIzAwYzFkNSIvPjxwb2x5Z29uIHBvaW50cz0iMTMuNzgyIDIuODAzIDEzLjIzIDMuMjQzIDguNDE2IDAuOTI1IDguNDE2IDAuMjIgMTMuNzgyIDIuODAzIiBmaWxsPSIjMDBjMWQ1Ii8+PHBvbHlnb24gcG9pbnRzPSIxNS41MjIgOC40ODggMTQuODcgOC40ODggMTMuODUgNC4wMTggMTQuNDAxIDMuNTggMTUuNTIyIDguNDg4IiBmaWxsPSIjMWQ0MjhhIi8+PHBvbHlnb24gcG9pbnRzPSIxLjk5IDQuMDE4IDAuODAxIDkuMjI4IDAuMTEzIDkuMzg2IDEuNDM5IDMuNTggMS45OSA0LjAxOCIgZmlsbD0iIzFkNDI4YSIvPjxwb2x5Z29uIHBvaW50cz0iNC4zNTMgMTQuMzc0IDQuMDQ3IDE1LjAxIDAuMzM0IDEwLjM1NCAxLjAyMSAxMC4xOTYgNC4zNTMgMTQuMzc0IiBmaWxsPSIjNzhiZTIwIi8+PHBvbHlnb24gcG9pbnRzPSI1LjI0OCAxNC44MDYgNy45ODIgMTQuODA2IDcuOTgyIDE1LjQ0MSA0Ljk0MiAxNS40NDEgNS4yNDggMTQuODA2IiBmaWxsPSIjMDBjMWQ1Ii8+PHBhdGggZD0iTTExLjQ1NiwxMS42di0uMDY0bTEuMDA1LTEuMjIxSDEyLjQzTTEwLjksMTIuMjM2aDB2MFptLjU1OC0uNjM2di0uMDY0IiBmaWxsPSJub25lIi8+PHBvbHlnb24gcG9pbnRzPSIxMy42OTEgOC40ODggMTMuMDM5IDguNDg4IDEyLjMgNS4yNSAxMi4zIDUuMjUgMTIuMTc2IDQuNzA4IDExLjY4NCA0LjQ3MSA4LjQxNiAyLjg5NyA3LjkyIDIuNjU4IDcuNDI0IDIuODk3IDQuMTU2IDQuNDcxIDMuNjYzIDQuNzA4IDMuNTQgNS4yNSAyLjczNCA4Ljc4MiAyLjYxMiA5LjMxNCAyLjk1OSA5Ljc0OSA1LjIxNiAxMi41NzkgNS41NTggMTMuMDA3IDcuOTgyIDEzLjAwNyA3Ljk4MiAxMy42NDMgNS4yNTIgMTMuNjQzIDQuOTEgMTMuMjE1IDIuMjczIDkuOTA3IDEuOTI0IDkuNDcxIDIuMDQ2IDguOTQxIDIuOTg4IDQuODExIDMuMTEyIDQuMjY5IDMuNjA0IDQuMDMyIDcuNDI0IDIuMTkyIDcuOTIgMS45NTMgOC40MTYgMi4xOTIgMTIuMjM2IDQuMDMyIDEyLjcyOCA0LjI2OSAxMi44NTIgNC44MTEgMTMuNjkxIDguNDg4IiBmaWxsPSIjMDA5MWRhIi8+PHBhdGggZD0iTTE0LjEwNywxMi4wNjRoLS41NTZ2LS43M2gtMi4xdi43M0g5LjE3NFYxNS4wNWg0LjYxN3YuNzNoMi4xVjEzLjY4NWgtMi4xdi43M0g5LjgwOVYxMi43aDEuNjQ3di43M2gyLjF2LS42MTloLS4wMDVsLjAwNS0uMDA3di0uMWgyLjMzNlY5LjY3OUgxMS4yNjl2LS43M2gtMi4xdjIuMWgyLjF2LS43MjloMy45ODJ2MS43NDlIMTQuMTQybS0zLjUwOC0xLjY1NUg5LjgwOVY5LjU4NGguODI1Wm0zLjc5MiwzLjkxMWguODI1di44MjVoLS44MjVaTTEwLjksMTIuMjM2aDBsMCwwWm0yLjAxNi41NTloLS44MjVWMTEuOTdoLjgyNVoiIGZpbGw9IiMxZDQyOGEiLz48cG9seWdvbiBwb2ludHM9IjEwLjkgMTIuMjMzIDEwLjkgMTIuMjM2IDEwLjg5OCAxMi4yMzYgMTAuOSAxMi4yMzMiIGZpbGw9IiMxZDQyOGEiLz48cGF0aCBkPSJNMTMuNTQ2LDEyLjgxMWguMDA1VjEyLjhaIiBmaWxsPSIjMWQ0MjhhIi8+PC9zdmc+
+  tags:
+    - sso
+    - authentication
+    - openid
+    - ldap
+
+  options:
+  - name: namespace
+    label: Namespace
+    dataType: string
+    defaultValue: default
+    description: Namespace where the authserver will be deployed
+
+  - name: allowedNamespaces
+    defaultValue: "*"
+    dataType: [string]
+    description: List of namespaces to allow client registrations from. use "*" to allow all namespaces
+
+  - name: allowHttpIssuer
+    inputType: checkbox
+    dataType: boolean
+    defaultValue: false
+    label: Allow Insecure (HTTP) Issuer URLs
+    description: Allows issuer URL to not use TLS and rather use plain text HTTP
+
+  - name: tlsSecretName
+    dataType: string
+    defaultValue: "kube-system/wildcard"
+    label: TLS Secret Name
+    description: name of the pre-existing secret in the format of "<namespace>/<secret name>"
+    dependsOn:
+      name: allowHttpIssuer
+      value: false
+
+  - name: authserverFqdn
+    label: Auth Server URL
+    dataType: string
+    description: The FQDN used as the issuer URL which will be exposed via a HTTPProxy
+    defaultValue: authserver.example.com
+
+  - name: idpType
+    inputType: select
+    label: Upstream IDP Type
+    choices:
+    - value: internal
+      text: Internal Local USers (Insecure)
+    - value: ldap
+      text: LDAP (Active Directory)
+    - value: oidc
+      text: OpenID Connect
+    - value: saml
+      text: SAML
+    defaultValue: ldap
+    description: The Type of upstream IDP to use
+    required: true
+
+  - name: ldapScheme
+    inputType: select
+    label: Protocol
+    choices:
+    - value: ldap
+      text: LDAP
+    - value: ldaps
+      text: LDAPS
+    defaultValue: ldap
+    description: Whether to use LDAP or LDAPS
+    dependsOn:
+      name: idpType
+      value: ldap
+    required: true
+
+  - name: ldapHost
+    dataType: string
+    dependsOn:
+      name: idpType
+      value: ldap
+    required: true
+    label: LDAP Host
+    description: LDAP Server FQDN to use as the upstream IDP
+    defaultValue: "my-ldap.com"
+
+  - name: ldapPort
+    dataType: number
+    dependsOn:
+      name: idpType
+      value: ldap
+    required: true
+    label: LDAP Port
+    description: LDAP Port for communication. Typically 389 for LDAP and 636 for LDAPS
+    defaultValue: 389
+
+  - name: ldapBaseDn
+    dataType: string
+    dependsOn:
+      name: idpType
+      value: ldap
+    required: true
+    label: LDAP Base DN
+    description: Base Path in LDAP server for LDAP integration
+    defaultValue: ""
+
+  - name: bindDn
+    dataType: string
+    dependsOn:
+      name: idpType
+      value: ldap
+    required: true
+    label: LDAP Bind DN
+    description: Distiguished Name for the user that will be used to bind with the LDAP Server
+    defaultValue: "uid=binduser,ou=Users,o=5d03d6ac6eed091436a8d664,dc=jumpcloud,dc=com"
+
+  - name: bindUserPassword
+    dataType: string
+    dependsOn:
+      name: idpType
+      value: ldap
+    required: true
+    label: LDAP Bind Password
+    description: Password of the Bind DN user
+    defaultValue: "very-z3cret"
+
+  - name: userSearchFilterAttribute
+    dataType: string
+    dependsOn:
+      name: idpType
+      value: ldap
+    required: true
+    label: LDAP User Search Filter Attribute
+    description: The LDAP attribute users will login with
+    defaultValue: "userPrincipalName"
+
+  - name: userSearchBaseDn
+    dataType: string
+    dependsOn:
+      name: idpType
+      value: ldap
+    required: true
+    label: LDAP User Search Base DN
+    description: Base path under which user searches will occur in LDAP server
+    defaultValue: "ou=Users,o=5d03d6ac6eed091436a8d664,dc=jumpcloud,dc=com"
+
+  - name: groupSearchFilterAttribute
+    dataType: string
+    dependsOn:
+      name: idpType
+      value: ldap
+    required: true
+    label: LDAP Group Search Filter Attribute
+    description: The field by which a user is found to be a member of a group
+    defaultValue: "member"
+
+  - name: groupSearchBaseDn
+    dataType: string
+    dependsOn:
+      name: idpType
+      value: ldap
+    required: true
+    label: LDAP Group Search Base DN
+    description: Base path under which group searches will occur in LDAP server
+    defaultValue: "ou=Users,o=5d03d6ac6eed091436a8d664,dc=jumpcloud,dc=com"
+
+  - name: groupSearchSubTree
+    dataType: boolean
+    inputType: checkbox
+    dependsOn:
+      name: idpType
+      value: ldap
+    required: true
+    label: LDAP Enable Nested Group Searching
+    description: Nested group searching can increase LDAP query times
+    defaultValue: true
+
+  - name: groupSearchDepth
+    dataType: number
+    dependsOn:
+      name: groupSearchSubTree
+    required: true
+    label: LDAP Group Search Depth
+    description: Limit the depth of nested group searching
+    defaultValue: 10
+
+  - name: groupRoleAttr
+    dataType: string
+    dependsOn:
+      name: idpType
+      value: ldap
+    required: true
+    label: LDAP Group Role Attribute
+    description: The field to be mapped from the group to a role in the auth tokens
+    defaultValue: "cn"
+
+engine:
+  - include: [ "authserver.yaml" ]
+    chain:
+    - type: YTT
