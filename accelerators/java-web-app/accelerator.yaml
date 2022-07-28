@@ -45,6 +45,7 @@ accelerator:
     expose:
     - name: namespace
     - name: appType
+    - name: sourceType
     - name: buildType
       dependsOn:
         name: sourceType
