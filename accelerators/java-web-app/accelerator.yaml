@@ -89,6 +89,7 @@ accelerator:
       dependsOn:
         name: sourceType
         value: maven
+    - name: includeHasTests
   - name: live-update-fragment
     expose:
     - name: sourceRepositoryPrefix
