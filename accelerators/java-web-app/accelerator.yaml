@@ -44,6 +44,7 @@ accelerator:
   - name: tap-workload-fragment
     expose:
     - name: namespace
+    - name: appType
     - name: buildType
       dependsOn:
         name: sourceType
