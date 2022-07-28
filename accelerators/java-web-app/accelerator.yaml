@@ -99,6 +99,9 @@ accelerator:
     - name: "*"
 
 engine:
+  let:
+  - name: hasServiceClaims
+    expression: false
   merge:
   - include: [ "**/*" ]
     exclude: [ "config/*.yaml", "Tiltfile", "README.md", "grype.yaml", "catalog/*.yaml", ".github/workflows/**", "Dockerfile" ]
@@ -118,9 +121,6 @@ engine:
       reference: java-version-fragment
     - type: InvokeFragment
       reference: tap-workload-fragment
-      let:
-      - name: hasServiceClaims
-        value: false
     - type: InvokeFragment
       reference: live-update-fragment
     - type: InvokeFragment
