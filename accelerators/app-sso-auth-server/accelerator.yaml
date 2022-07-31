@@ -16,7 +16,7 @@ accelerator:
     description: Namespace where the authserver will be deployed
 
   - name: allowedNamespaces
-    defaultValue: "*"
+    defaultValue: ["default"]
     dataType: [string]
     description: List of namespaces to allow client registrations from. use "*" to allow all namespaces
 
