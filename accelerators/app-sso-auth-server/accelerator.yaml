@@ -46,6 +46,8 @@ accelerator:
     - value: saml
       text: SAML
     description: The Type of upstream IDPs to configure
+    defaultValue:
+      - internal
     required: true
 
   - name: allowHttpIssuer
