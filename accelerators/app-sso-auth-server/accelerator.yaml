@@ -14,28 +14,16 @@ accelerator:
     dataType: string
     defaultValue: default
     description: Namespace where the authserver will be deployed
-  - name: checkbox
-    inputType: checkbox
-    display: true
-    dataType: [string]
-    defaultValue:
-      - value-2
-    choices:
-      - text: Checkbox choice 1
-        value: value-1
-      - text: Checkbox choice 2
-        value: value-2
-      - text: Checkbox choice 3
-        value: value-3
+    
   - name: allowedNamespaces
     required: true
     dataType: [string]
     description: List of namespaces to allow client registrations from. use "*" to allow all namespaces
 
-  - name: idpTypes
+  - name: idptypes
     inputType: checkbox
+    label: Upstream IDP Type
     dataType: [string]
-    display: true
     choices:
       - value: internal
         text: Internal Local USers (Insecure)
@@ -45,8 +33,10 @@ accelerator:
         text: OpenID Connect
       - value: saml
         text: SAML
+    description: The Type of upstream IDPs to configure
     defaultValue:
       - internal
+    required: true
 
   - name: allowHttpIssuer
     inputType: checkbox
