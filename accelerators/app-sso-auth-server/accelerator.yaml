@@ -9,27 +9,6 @@ accelerator:
     - ldap
 
   options:
-  - name: ldapIdp
-    inputType: checkbox
-    dataType: boolean
-    defaultValue: false
-    label: Add LDAP Backend (Experimental)
-  - name: oidcIdp
-    inputType: checkbox
-    dataType: boolean
-    defaultValue: false
-    label: Add OIDC Backend
-  - name: internalIdp
-    inputType: checkbox
-    dataType: boolean
-    defaultValue: false
-    label: Add Internal Backend IDP (Insecure)
-  - name: samlIdp
-    inputType: checkbox
-    dataType: boolean
-    defaultValue: false
-    label: Add SAML Backend IDP (Experimental)
-
   - name: namespace
     label: Namespace
     dataType: string
@@ -63,9 +42,30 @@ accelerator:
     description: The FQDN used as the issuer URL which will be exposed via a HTTPProxy
     defaultValue: authserver.example.com
 
+  - name: ldapIdp
+    inputType: checkbox
+    dataType: boolean
+    defaultValue: false
+    label: Add LDAP Backend (Experimental)
+  - name: oidcIdp
+    inputType: checkbox
+    dataType: boolean
+    defaultValue: false
+    label: Add OIDC Backend
+  - name: internalIdp
+    inputType: checkbox
+    dataType: boolean
+    defaultValue: false
+    label: Add Internal Backend IDP (Insecure)
+  - name: samlIdp
+    inputType: checkbox
+    dataType: boolean
+    defaultValue: false
+    label: Add SAML Backend IDP (Experimental)
+
   - name: ldapScheme
     inputType: select
-    label: Protocol
+    label: LDAP - Protocol
     choices:
     - value: ldap
       text: LDAP
@@ -84,7 +84,7 @@ accelerator:
       name: ldapIdp
       value: true
     required: true
-    label: LDAP Host
+    label: LDAP - FQDN or IP of server
     description: LDAP Server FQDN to use as the upstream IDP
     defaultValue: "my-ldap.com"
 
@@ -94,7 +94,7 @@ accelerator:
       name: ldapIdp
       value: true
     required: true
-    label: LDAP Port
+    label: LDAP - Port
     description: LDAP Port for communication. Typically 389 for LDAP and 636 for LDAPS
     defaultValue: 389
 
@@ -104,7 +104,7 @@ accelerator:
       name: ldapIdp
       value: true
     required: true
-    label: LDAP Base DN
+    label: LDAP - Base DN
     description: Base Path in LDAP server for LDAP integration
     defaultValue: ""
 
@@ -114,7 +114,7 @@ accelerator:
       name: ldapIdp
       value: true
     required: true
-    label: LDAP Bind DN
+    label: LDAP - Bind DN
     description: Distiguished Name for the user that will be used to bind with the LDAP Server
     defaultValue: "uid=binduser,ou=Users,o=5d03d6ac6eed091436a8d664,dc=jumpcloud,dc=com"
 
@@ -124,7 +124,7 @@ accelerator:
       name: ldapIdp
       value: true
     required: true
-    label: LDAP Bind Password
+    label: LDAP - Bind Password
     description: Password of the Bind DN user
     defaultValue: "very-z3cret"
 
@@ -134,7 +134,7 @@ accelerator:
       name: ldapIdp
       value: true
     required: true
-    label: LDAP User Search Filter Attribute
+    label: LDAP - User Search Filter Attribute
     description: The LDAP attribute users will login with
     defaultValue: "userPrincipalName"
 
@@ -144,7 +144,7 @@ accelerator:
       name: ldapIdp
       value: true
     required: true
-    label: LDAP User Search Base DN
+    label: LDAP - User Search Base DN
     description: Base path under which user searches will occur in LDAP server
     defaultValue: "ou=Users,o=5d03d6ac6eed091436a8d664,dc=jumpcloud,dc=com"
 
@@ -154,7 +154,7 @@ accelerator:
       name: ldapIdp
       value: true
     required: true
-    label: LDAP Group Search Filter Attribute
+    label: LDAP - Group Search Filter Attribute
     description: The field by which a user is found to be a member of a group
     defaultValue: "member"
 
@@ -164,7 +164,7 @@ accelerator:
       name: ldapIdp
       value: true
     required: true
-    label: LDAP Group Search Base DN
+    label: LDAP - Group Search Base DN
     description: Base path under which group searches will occur in LDAP server
     defaultValue: "ou=Users,o=5d03d6ac6eed091436a8d664,dc=jumpcloud,dc=com"
 
@@ -175,7 +175,7 @@ accelerator:
       name: ldapIdp
       value: true
     required: true
-    label: LDAP Enable Nested Group Searching
+    label: LDAP - Enable Nested Group Searching
     description: Nested group searching can increase LDAP query times
     defaultValue: true
 
@@ -184,7 +184,7 @@ accelerator:
     dependsOn:
       name: groupSearchSubTree
     required: true
-    label: LDAP Group Search Depth
+    label: LDAP - Group Search Depth
     description: Limit the depth of nested group searching
     defaultValue: 10
 
@@ -194,9 +194,150 @@ accelerator:
       name: ldapIdp
       value: true
     required: true
-    label: LDAP Group Role Attribute
+    label: LDAP - Group Role Attribute
     description: The field to be mapped from the group to a role in the auth tokens
     defaultValue: "cn"
+
+  - name: metadataUri
+    dataType: string
+    dependsOn:
+      name: samlIdp
+      value: true
+    defaultValue: https://saml.example.com/sso/saml/metadata
+    label: SAML - Metadata URI
+    description: The metadata URI for your SAML IDP
+
+  - name: configureClaimMappings
+    dataType: boolean
+    dependsOn:
+      name: samlIdp
+      value: true
+    defaultValue: false
+    label: SAML - Configure Claim Mappings
+    description: Whether to configure mappings of SAML attributes into claims in id_tokens issued by AppSSO
+
+
+  - name: rolesClaimMapping
+    dataType: string
+    dependsOn:
+      name: configureClaimMappings
+      value: true
+    defaultValue: ""
+    label: SAML - Roles Claim Mapping
+    description: maps the AppSSO roles claim to the provided SAML attribute
+
+  - name: givenNameClaimMapping
+    dataType: string
+    dependsOn:
+      name: configureClaimMappings
+      value: true
+    defaultValue: ""
+    label: SAML - Give Name Claim Mapping
+    description: maps the AppSSO givenName claim to the provided SAML attribute
+
+  - name: familyNameClaimMapping
+    dataType: string
+    dependsOn:
+      name: configureClaimMappings
+      value: true
+    defaultValue: ""
+    label: SAML - Family Name Claim Mapping
+    description: maps the AppSSO famliyName claim to the provided SAML attribute
+
+  - name: emailClaimMapping
+    dataType: string
+    dependsOn:
+      name: configureClaimMappings
+      value: true
+    defaultValue: ""
+    label: SAML - Email Claim Mapping
+    description: maps the AppSSO emailAddress claim to the provided SAML attribute
+
+  - name: issuerUri
+    dataType: string
+    dependsOn:
+      name: oidcIdp
+      value: true
+    defaultValue: "https://openid.example.com"
+    label: OIDC - Issuer URI
+    description: The issuer identifier.
+
+  - name: authorizationUri
+    dataType: string
+    dependsOn:
+      name: oidcIdp
+      value: true
+    defaultValue: "https://example.com/oauth2/authorize"
+    label: OIDC - Authorization URI
+    description: The URI for performing an authorization request and obtaining an authorization_code
+
+  - name: tokenUri
+    dataType: string
+    dependsOn:
+      name: oidcIdp
+      value: true
+    defaultValue: "https://example.com/oauth2/token"
+    label: OIDC - Token URI
+    description: The URI for performing a token request, and obtaining a token
+
+  - name: jwksUri
+    dataType: string
+    dependsOn:
+      name: oidcIdp
+      value: true
+    defaultValue: "https://example.com/oauth2/jwks"
+    label: OIDC - JWKS URI
+    description: The JWKS endpoint for obtaining the JSON Web Keys, used to verify token signatures
+
+  - name: clientId
+    dataType: string
+    dependsOn:
+      name: oidcIdp
+      value: true
+    defaultValue: ""
+    label: OIDC - Client ID
+    description: Obtained when registering a client with the provider, often through a web UI
+    required: true
+
+  - name: scopes
+    inputType: checkbox
+    display: true
+    dataType: [string]
+    dependsOn:
+      name: oidcIdp
+      value: true
+    defaultValue:
+      - openid
+    choices:
+      - text: openid
+        value: openid
+      - text: email
+        value: email
+      - text: profile
+        value: profile
+      - text: roles
+        value: roles
+    label: OIDC - Scopes
+    description: MUST contain "openid". Other common OpenID values are "profile", "email".
+
+  - name: clientSecret
+    dataType: string
+    dependsOn:
+      name: oidcIdp
+      value: true
+    defaultValue: ""
+    label: OIDC - Client Secret
+    description: Obtained when registering a client with the provider, often through a web UI
+    required: true
+
+  - name: oidcRolesClaimMapping
+    dataType: string
+    dependsOn:
+      name: oidcIdp
+      value: true
+    defaultValue: ""
+    label: OIDC - Roles Claim Mapping
+    description: Maps the AppSSO roles claim to the provided backend OIDC claim
 
 engine:
   merge:
