@@ -71,7 +71,7 @@ accelerator:
     defaultValue: ldap
     description: Whether to use LDAP or LDAPS
     dependsOn:
-      name: idptype
+      name: idptypes
       value: [ldap]
     required: true
 
