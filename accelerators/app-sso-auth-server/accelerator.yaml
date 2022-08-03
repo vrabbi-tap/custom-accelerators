@@ -9,17 +9,6 @@ accelerator:
     - ldap
 
   options:
-  - name: namespace
-    label: Namespace
-    dataType: string
-    defaultValue: default
-    description: Namespace where the authserver will be deployed
-
-  - name: allowedNamespaces
-    required: true
-    dataType: [string]
-    description: List of namespaces to allow client registrations from. use "*" to allow all namespaces
-
   - name: idptypes
     inputType: checkbox
     label: Upstream IDP Type
@@ -37,6 +26,17 @@ accelerator:
     defaultValue:
       - internal
     required: true
+    
+  - name: namespace
+    label: Namespace
+    dataType: string
+    defaultValue: default
+    description: Namespace where the authserver will be deployed
+
+  - name: allowedNamespaces
+    required: true
+    dataType: [string]
+    description: List of namespaces to allow client registrations from. use "*" to allow all namespaces
 
   - name: allowHttpIssuer
     inputType: checkbox
