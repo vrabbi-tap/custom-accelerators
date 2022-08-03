@@ -58,16 +58,21 @@ spec:
     #@ if data.values.oidcIdp:
     - name: oidc
       openID:
+        #@ if data.values.autoConfigureOidcViaMetadataUri:
         issuerURI: #@ data.values.issuerUri
+        #@ else:
         authorizationUri: #@ data.values.authorizationUri
         tokenUri: #@ data.values.tokenUri
         jwksUri: #@ data.values.jwksUri
+        #@ end
         clientID: #@ data.values.clientId
         clientSecretRef:
           name: #@ "{}-oidc-client-secret".format(data.values.artifactId)
         scopes: #@ data.values.scopes
+        #@ if data.values.rolesClaimMapping:
         claimMappings:
           roles: #@ data.values.rolesClaimMapping
+        #@ end
     #@ end
     #@ if data.values.samlIdp:
     - name: my-saml-provider

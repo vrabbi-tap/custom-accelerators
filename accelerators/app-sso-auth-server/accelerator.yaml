@@ -66,20 +66,27 @@ accelerator:
     defaultValue: false
     label: Add SAML Backend IDP (Experimental)
 
+  - name: autoConfigureOidcViaIssuerUri
+    defaultValue: true
+    inputType: checkbox
+    dataType: boolean
+    label: OIDC - Configure using OIDC Discovery
+    description: If the provider supports OpenID Connect Discovery, An issuer URI will be used to auto-configure the provider.
+
   - name: issuerUri
     dataType: string
     dependsOn:
-      name: oidcIdp
+      name: autoConfigureOidcViaIssuerUri
       value: true
     defaultValue: "https://openid.example.com"
     label: OIDC - Issuer URI
-    description: The issuer identifier.
+    description: The issuer identifier. If the provider supports OpenID Connect Discovery.
 
   - name: authorizationUri
     dataType: string
     dependsOn:
-      name: oidcIdp
-      value: true
+      name: autoConfigureOidcViaIssuerUri
+      value: false
     defaultValue: "https://example.com/oauth2/authorize"
     label: OIDC - Authorization URI
     description: The URI for performing an authorization request and obtaining an authorization_code
@@ -87,8 +94,8 @@ accelerator:
   - name: tokenUri
     dataType: string
     dependsOn:
-      name: oidcIdp
-      value: true
+      name: autoConfigureOidcViaIssuerUri
+      value: false
     defaultValue: "https://example.com/oauth2/token"
     label: OIDC - Token URI
     description: The URI for performing a token request, and obtaining a token
@@ -96,8 +103,8 @@ accelerator:
   - name: jwksUri
     dataType: string
     dependsOn:
-      name: oidcIdp
-      value: true
+      name: autoConfigureOidcViaIssuerUri
+      value: false
     defaultValue: "https://example.com/oauth2/jwks"
     label: OIDC - JWKS URI
     description: The JWKS endpoint for obtaining the JSON Web Keys, used to verify token signatures
