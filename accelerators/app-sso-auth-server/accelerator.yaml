@@ -32,7 +32,7 @@ accelerator:
     dataType: [string]
     description: List of namespaces to allow client registrations from. use "*" to allow all namespaces
 
-  - name: idptypes
+  - name: idpTypes
     inputType: checkbox
     dataType: [string]
     display: true
