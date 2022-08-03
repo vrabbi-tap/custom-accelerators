@@ -9,23 +9,26 @@ accelerator:
     - ldap
 
   options:
-  - name: idptype
+  - name: ldapIdp
     inputType: checkbox
-    label: Upstream IDP Type
-    dataType: [string]
-    choices:
-      - value: internal
-        text: Internal Local USers (Insecure)
-      - value: ldap
-        text: LDAP (Active Directory)
-      - value: oidc
-        text: OpenID Connect
-      - value: saml
-        text: SAML
-    description: The Type of upstream IDPs to configure
-    defaultValue:
-      - internal
-    required: true
+    dataType: boolean
+    defaultValue: false
+    label: Add LDAP Backend (Experimental)
+  - name: oidcIdp
+    inputType: checkbox
+    dataType: boolean
+    defaultValue: false
+    label: Add OIDC Backend
+  - name: internalIdp
+    inputType: checkbox
+    dataType: boolean
+    defaultValue: false
+    label: Add Internal Backend IDP (Insecure)
+  - name: samlIdp
+    inputType: checkbox
+    dataType: boolean
+    defaultValue: false
+    label: Add SAML Backend IDP (Experimental)
 
   - name: namespace
     label: Namespace
@@ -71,15 +74,15 @@ accelerator:
     defaultValue: ldap
     description: Whether to use LDAP or LDAPS
     dependsOn:
-      name: idptypes
-      value: [ldap]
+      name: ldapIdp
+      value: true
     required: true
 
   - name: ldapHost
     dataType: string
     dependsOn:
-      name: idptypes
-      value: ["ldap"]
+      name: ldapIdp
+      value: true
     required: true
     label: LDAP Host
     description: LDAP Server FQDN to use as the upstream IDP
@@ -88,8 +91,8 @@ accelerator:
   - name: ldapPort
     dataType: number
     dependsOn:
-      name: idptypes
-      value: ["ldap"]
+      name: ldapIdp
+      value: true
     required: true
     label: LDAP Port
     description: LDAP Port for communication. Typically 389 for LDAP and 636 for LDAPS
@@ -98,8 +101,8 @@ accelerator:
   - name: ldapBaseDn
     dataType: string
     dependsOn:
-      name: idptypes
-      value: ["ldap"]
+      name: ldapIdp
+      value: true
     required: true
     label: LDAP Base DN
     description: Base Path in LDAP server for LDAP integration
@@ -108,8 +111,8 @@ accelerator:
   - name: bindDn
     dataType: string
     dependsOn:
-      name: idptypes
-      value: ["ldap"]
+      name: ldapIdp
+      value: true
     required: true
     label: LDAP Bind DN
     description: Distiguished Name for the user that will be used to bind with the LDAP Server
@@ -118,8 +121,8 @@ accelerator:
   - name: bindUserPassword
     dataType: string
     dependsOn:
-      name: idptypes
-      value: ["ldap"]
+      name: ldapIdp
+      value: true
     required: true
     label: LDAP Bind Password
     description: Password of the Bind DN user
@@ -128,8 +131,8 @@ accelerator:
   - name: userSearchFilterAttribute
     dataType: string
     dependsOn:
-      name: idptypes
-      value: ["ldap"]
+      name: ldapIdp
+      value: true
     required: true
     label: LDAP User Search Filter Attribute
     description: The LDAP attribute users will login with
@@ -138,8 +141,8 @@ accelerator:
   - name: userSearchBaseDn
     dataType: string
     dependsOn:
-      name: idptypes
-      value: ["ldap"]
+      name: ldapIdp
+      value: true
     required: true
     label: LDAP User Search Base DN
     description: Base path under which user searches will occur in LDAP server
@@ -148,8 +151,8 @@ accelerator:
   - name: groupSearchFilterAttribute
     dataType: string
     dependsOn:
-      name: idptypes
-      value: ["ldap"]
+      name: ldapIdp
+      value: true
     required: true
     label: LDAP Group Search Filter Attribute
     description: The field by which a user is found to be a member of a group
@@ -158,8 +161,8 @@ accelerator:
   - name: groupSearchBaseDn
     dataType: string
     dependsOn:
-      name: idptypes
-      value: ["ldap"]
+      name: ldapIdp
+      value: true
     required: true
     label: LDAP Group Search Base DN
     description: Base path under which group searches will occur in LDAP server
@@ -169,8 +172,8 @@ accelerator:
     dataType: boolean
     inputType: checkbox
     dependsOn:
-      name: idptypes
-      value: ["ldap"]
+      name: ldapIdp
+      value: true
     required: true
     label: LDAP Enable Nested Group Searching
     description: Nested group searching can increase LDAP query times
@@ -188,8 +191,8 @@ accelerator:
   - name: groupRoleAttr
     dataType: string
     dependsOn:
-      name: idptypes
-      value: ["ldap"]
+      name: ldapIdp
+      value: true
     required: true
     label: LDAP Group Role Attribute
     description: The field to be mapped from the group to a role in the auth tokens
