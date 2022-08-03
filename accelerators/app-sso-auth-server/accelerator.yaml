@@ -18,7 +18,7 @@ accelerator:
   - name: allowedNamespaces
     required: true
     dataType: [string]
-    inputType: text
+    inputType: multi-text
     description: List of namespaces to allow client registrations from. use "*" to allow all namespaces
 
   - name: allowHttpIssuer
