@@ -58,7 +58,7 @@ spec:
     #@ if data.values.oidcIdp:
     - name: oidc
       openID:
-        #@ if data.values.autoConfigureOidcViaMetadataUri:
+        #@ if data.values.autoConfigureOidcViaMetadataUri == "yes":
         issuerURI: #@ data.values.issuerUri
         #@ else:
         authorizationUri: #@ data.values.authorizationUri
