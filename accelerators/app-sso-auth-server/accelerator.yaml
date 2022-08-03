@@ -59,7 +59,7 @@ accelerator:
     defaultValue: authserver.example.com
 
   - name: ldapScheme
-    inputType: checkbox
+    inputType: select
     label: Protocol
     choices:
     - value: ldap
