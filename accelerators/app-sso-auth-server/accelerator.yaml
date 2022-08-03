@@ -75,10 +75,10 @@ accelerator:
     label: OIDC - Configure using OIDC Discovery
     description: If the provider supports OpenID Connect Discovery, An issuer URI will be used to auto-configure the provider.
     choices:
-    - value: yes
-      text: Yes
-    - value: no
-      text: No
+    - value: "yes"
+      text: "Yes"
+    - value: "no"
+      text: "No"
     required: true
 
   - name: issuerUri
