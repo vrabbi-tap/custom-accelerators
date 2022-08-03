@@ -34,21 +34,19 @@ accelerator:
 
   - name: idpTypes
     inputType: checkbox
-    label: Upstream IDP Type
     dataType: [string]
+    display: true
     choices:
-    - value: internal
-      text: Internal Local USers (Insecure)
-    - value: ldap
-      text: LDAP (Active Directory)
-    - value: oidc
-      text: OpenID Connect
-    - value: saml
-      text: SAML
-    description: The Type of upstream IDPs to configure
+      - value: internal
+        text: Internal Local USers (Insecure)
+      - value: ldap
+        text: LDAP (Active Directory)
+      - value: oidc
+        text: OpenID Connect
+      - value: saml
+        text: SAML
     defaultValue:
       - internal
-    required: true
 
   - name: allowHttpIssuer
     inputType: checkbox
