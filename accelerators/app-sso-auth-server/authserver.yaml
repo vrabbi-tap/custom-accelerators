@@ -1,4 +1,13 @@
 #@ load("@ytt:data", "data")
+
+#@ def array_contains(idpType):
+#@   for i in data.values.idpTypes:
+#@     if i == idpType:
+#@       return True
+#@     end
+#@   end
+#@   return False
+#@ end
 ---
 apiVersion: sso.apps.tanzu.vmware.com/v1alpha1
 kind: AuthServer
@@ -12,7 +21,7 @@ metadata:
     #@ if data.values.allowHttpIssuer:
     sso.apps.tanzu.vmware.com/allow-unsafe-issuer-uri: ""
     #@ end
-    #@ if data.values.idpType == "internal":
+    #@ if array_contains("internal"):
     sso.apps.tanzu.vmware.com/allow-unsafe-identity-provider: ""
     #@ end
 spec:
@@ -26,14 +35,14 @@ spec:
     signAndVerifyKeyRef:
       name: #@ "{}-signing-key".format(data.values.artifactId)
   identityProviders:
-    #@ if data.values.idpType == "internal":
+    #@ if array_contains("internal"):
     - name: "internal"
       internalUnsafe:
         users:
           - username: "user"
             password: "$2a$10$201z9o/tHlocFsHFTo0plukh03ApBYe4dRiXcqeyRQH6CNNtS8jWK"
     #@ end
-    #@ if data.values.idpType == "ldap":
+    #@ if array_contains("ldap"):
     - name: ldap
       ldap:
         server:
@@ -55,7 +64,41 @@ spec:
           searchDepth: #@ data.values.groupSearchDepth
           roleAttribute: #@ data.values.groupRoleAttr
     #@ end
-#@ if data.values.idpType == "ldap":
+    #@ if array_contains("oidc"):
+    - name: oidc
+      openID:
+        issuerURI: #@ data.values.issuerUri
+        authorizationUri: #@ data.values.authorizationUri
+        tokenUri: #@ data.values.tokenUri
+        jwksUri: #@ data.values.jwksUri
+        clientID: #@ data.values.clientId
+        clientSecretRef:
+          name: #@ "{}-oidc-client-secret".format(data.values.artifactId)
+        scopes: #@ data.values.scopes
+        claimMappings:
+          roles: #@ data.values.rolesClaimMapping
+    #@ end
+    #@ if array_contains("saml"):
+    - name: my-saml-provider
+      saml:
+        metadataURI: #@ data.values.metadataUri
+        #@ if data.values.configureClaimMappings:
+        claimMappings:
+          #@ if data.values.rolesClaimMapping:
+          roles: #@ data.values.rolesClaimMapping
+          #@ end
+          #@ if data.values.givenNameClaimMapping:
+          givenName: #@ data.values.givenNameClaimMapping
+          #@ end
+          #@ if data.values.familyNameClaimMapping:
+          familyName: #@ data.values.familyNameClaimMapping
+          #@ end
+          #@ if data.values.emailClaimMapping:
+          emailAddress: #@ data.values.emailClaimMapping
+          #@ end
+        #@ end
+    #@ end
+#@ if array_contains("ldap"):
 ---
 apiVersion: v1
 kind: Secret
@@ -64,6 +107,16 @@ metadata:
   namespace: #@ data.values.namespace
 stringData:
   password: #@ data.values.bindUserPassword
+#@ end
+#@ if array_contains("oidc"):
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: #@ "{}-oidc-client-secret".format(data.values.artifactId)
+  namespace: #@ data.values.namespace
+stringData:
+  clientSecret: #@ data.values.clientSecret
 #@ end
 ---
 apiVersion: secretgen.k14s.io/v1alpha1
