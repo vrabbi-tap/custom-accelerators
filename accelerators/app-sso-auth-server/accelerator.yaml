@@ -19,6 +19,7 @@ accelerator:
     required: true
     dataType: [string]
     inputType: text
+    defaultValue: ["*"]
     description: List of namespaces to allow client registrations from. use "*" to allow all namespaces
 
   - name: allowHttpIssuer
@@ -81,6 +82,7 @@ accelerator:
     - value: "no"
       text: "No"
     required: true
+    defaultValue: "yes"
 
   - name: issuerUri
     dataType: string
