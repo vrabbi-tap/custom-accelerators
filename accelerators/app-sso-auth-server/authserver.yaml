@@ -17,10 +17,20 @@ metadata:
     #@ end
 spec:
   replicas: 1
-  #@ if data.values.allowHttpIssuer:
-  issuerURI: #@ "http://{}".format(data.values.authserverFqdn)
-  #@ else:
-  issuerURI: #@ "https://{}".format(data.values.authserverFqdn)
+  tls:
+    #@ if data.values.allowHttpIssuer:
+    disabled: true
+    #@ else if data.values.tlsSourceType == "CertManager":
+    issuerRef:
+      kind: #@data.values.issuerType
+      name: #@ data.values.issuerName
+    #@ else if data.values.tlsSourceType == "SecretRef":
+    secretRef:
+      name: #@ data.values.secretName
+    #@ else
+    certificateRef:
+      name: #@ data.values.certName
+    #@ end
   #@ end
   tokenSignature:
     signAndVerifyKeyRef:
@@ -126,35 +136,3 @@ spec:
     stringData:
       key.pem: $(privateKey)
       pub.pem: $(publicKey)
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: #@ data.values.artifactId
-  namespace: #@ data.values.namespace
-spec:
-  selector:
-    app.kubernetes.io/part-of: #@ data.values.artifactId
-    app.kubernetes.io/component: authorization-server
-  ports:
-    - port: 80
-      targetPort: 8080
----
-apiVersion: projectcontour.io/v1
-kind: HTTPProxy
-metadata:
-  name: #@ data.values.artifactId
-  namespace: #@ data.values.namespace
-spec:
-  virtualhost:
-    fqdn: #@ data.values.authserverFqdn
-    #@ if not data.values.allowHttpIssuer:
-    tls:
-      secretName: #@ data.values.tlsSecretName
-    #@ end
-  routes:
-    - conditions:
-        - prefix: /
-      services:
-        - name: #@ data.values.artifactId
-          port: 80
